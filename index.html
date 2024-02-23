@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="todo-app">
+    <h2>Todo List</h2>
+    <form id="todo-form">
+      <input type="text" id="task-title" placeholder="Task Title" required>
+      <textarea id="task-desc" placeholder="Task Description" required></textarea>
+      <input type="date" id="task-deadline" required>
+      <input type="text" id="task-time-estimate" placeholder="Time Estimate (e.g., 2 hours)" required>
+      <select id="task-category">
+        <option value="shopping">Shopping</option>
+        <option value="household">Household</option>
+        <option value="cleaning">Cleaning</option>
+        <!-- Add more categories as needed -->
+      </select>
+      <button type="submit">Add Task</button>
+    </form>
+    <h3>Ongoing Tasks</h3>
+    <ul id="todo-list"></ul>
+    <h3>Completed Tasks</h3>
+    <ul id="completed-tasks"></ul>
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
