@@ -1,44 +1,58 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
-    padding: 20px;
-  }
-  
-  #todo-app {
+/* Flexbox container for Todo List and Habit Tracker */
+.container {
+    display: flex;
+}
+
+/* Style for Todo List */
+#todo-app {
+    flex: 1; /* Take up remaining space */
     background: #fff;
     padding: 20px;
     border-radius: 5px;
-  }
-  
-  #todo-form input[type="text"],
-  #todo-form input[type="date"],
-  #todo-form textarea,
-  #todo-form select {
+    margin-right: 20px; /* Add some space between the sections */
+}
+
+/* Style for Habit Tracker */
+#habitsTracker {
+    flex: 1; /* Take up remaining space */
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Shared styles for forms in Todo List and Habit Tracker */
+form {
+    margin-bottom: 20px; /* Add space between forms */
+}
+
+form input[type="text"],
+form input[type="date"],
+form textarea,
+form select {
     margin: 10px 0;
     padding: 10px;
     width: calc(100% - 22px);
-  }
-  
-  #todo-form button {
+}
+
+form button {
     padding: 10px 20px;
     cursor: pointer;
-  }
-  
-  #todo-list,
-  #completed-tasks {
+}
+
+/* Shared styles for task/habit lists */
+ul {
     list-style: none;
     margin: 20px 0;
     padding: 0;
-  }
-  
-  #todo-list li,
-  #completed-tasks li {
+}
+
+ul li {
     background: #eee;
     margin-bottom: 10px;
     padding: 10px;
     border-radius: 5px;
-  }
-  
-  #completed-tasks li {
+}
+
+#completed-tasks li {
     background-color: #d4edda; /* Light green background for done tasks */
-  }
+}
