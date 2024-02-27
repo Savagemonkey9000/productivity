@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const inputDescHabit = document.getElementById("habits-desc");
     const inputCategoryHabit = document.getElementById("Habit-Priority");
     const habitStreak = document.getElementById("streak");
+    const completedTasksList = document.getElementById("completed-tasks");
     let isEditing = false;
     let currentEditingId = null;
 
@@ -100,8 +101,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const addHabit = (title, description, priority) => {
+        const currentDate = new Date();
+        const creationDate = currentDate.toISOString().slice(0, 19).replace("T", " "); // Format timestamp
         const habit = {
             id: Date.now(),
+            timestamp: creationDate,
             title,
             description,
             priority,
@@ -145,34 +149,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Deadline:</strong> ${task.deadline}</p>
                 <p><strong>Time Estimate:</strong> ${task.timeEstimate}</p>
                 <p><strong>Category:</strong> ${task.category}</p>
-                <button onclick="toggleTaskStatus(${task.id})">${
-                task.done ? "Mark as Not Done" : "Mark as Done"
-                }</button>
+                <button onclick="toggleTaskStatus(${task.id})">
+                ${task.done ? "Mark as Not Done" : "Mark as Done"}
+                </button>
                 <button onclick="editTask(${task.id})">Edit</button>
                 <button onclick="deleteTask(${task.id})">Delete</button>
             `;
-            todoList.appendChild(taskElement);
+            if(task.done){
+                completedTasksList.appendChild(taskElement);
+            } else {
+                todoList.appendChild(taskElement);
+            }
         });
     };
 
-    const displayHabits = () => {
-        const habits = JSON.parse(localStorage.getItem("habits")) || [];
-        habitStreak.innerHTML = "";
-        habits.forEach((habit) => {
-            const habitElement = document.createElement("div");
-            habitElement.innerHTML = `
-                <h3>${habit.title}</h3>
-                <p>${habit.description}</p>
-                <p><strong>Priority:</strong> ${habit.priority}</p>
-                <p><strong>Streak:</strong> ${habit.streak}</p>
-                <button onclick="editHabit(${habit.id})">Edit</button>
-                <button onclick="deleteHabit(${habit.id})">Delete</button>
-            `;
-            habitStreak.appendChild(habitElement);
-        });
-    };
-
-    window.toggleTaskStatus = (id) => {
+     window.toggleTaskStatus = (id) => {
         const tasks = JSON.parse(localStorage.getItem("tasks"));
         const taskIndex = tasks.findIndex((task) => task.id === id);
         tasks[taskIndex].done = !tasks[taskIndex].done;
@@ -199,6 +190,26 @@ document.addEventListener("DOMContentLoaded", () => {
         displayTasks();
     };
 
+    const displayHabits = () => {
+        const habits = JSON.parse(localStorage.getItem("habits")) || [];
+        habitStreak.innerHTML = "";
+        habits.forEach((habit) => {
+            const habitElement = document.createElement("div");
+            habitElement.innerHTML = `
+                <h3>${habit.title}</h3>
+                <p>${habit.description}</p>
+                <p><strong>Priority:</strong> ${habit.priority}</p>
+                <p><strong>Streak:</strong> ${habit.streak}</p>
+                <button onclick="editHabit(${habit.id})">Edit</button>
+                <button onclick="deleteHabit(${habit.id})">Delete</button>
+                <button onclick="iterateStreak(${habit.id})">streak</button>
+            `;
+            habitStreak.appendChild(habitElement);
+        });
+    };
+
+   
+
     window.editHabit = (id) => {
         const habits = JSON.parse(localStorage.getItem("habits"));
         const habit = habits.find((habit) => habit.id === id);
@@ -215,6 +226,37 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("habits", JSON.stringify(habits));
         displayHabits();
     };
+    
+    window.iterateStreak = (id) => {
+        let habits = JSON.parse(localStorage.getItem("habits")) || [];
+        habits = habits.map(habit => {
+            if (habit.id === id) {
+                const currentTime = Date.now();
+                const timeSinceCreation = currentTime - habit.timestamp; // Calculate time since habit creation
+                
+                // Check if it's been at least 24 hours since habit creation
+                if (timeSinceCreation >= 24 * 60 * 60 * 1000) {
+                    const lastStreakIncrement = habit.lastStreakIncrement || 0;
+                    
+                    
+                    if (currentTime - lastStreakIncrement >= 24 * 60 * 60 * 1000) {
+                        habit.streak += 1; 
+                        habit.lastStreakIncrement = currentTime; 
+                    } else {
+                        console.log("Cannot increment streak yet. Less than 24 hours since last increment.");
+                    }
+                } else {
+                    console.log("Cannot increment streak yet. Less than 24 hours since habit creation.");
+                }
+            }
+            return habit;
+        });
+        localStorage.setItem("habits", JSON.stringify(habits));
+        displayHabits(); 
+    };
+    
+    
+    
 
     displayTasks();
     displayHabits();
