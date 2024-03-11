@@ -9,6 +9,21 @@
 </head>
 
 <body>
+  <div class="container">
+    <div class="card">
+        <h2>profile page</h2>
+        <button onclick="logOut()" style="float: right; background-color: red;">Logout</button>
+        <hr>
+        <h3>Welcome
+        
+            <script>
+                document.write(localStorage.getItem("name"));
+            </script>
+        
+      </h3>
+    </div>
+</div>
+
   <div id="todo-app">
     <h2>Todo List</h2>
     <form id="todo-form">
@@ -29,7 +44,7 @@
     <h3>Completed Tasks</h3>
     <ul id="completed-tasks"></ul>
   </div>
-  <script src="script.js"></script>
+  <script src="../login/index.js"></script>
 </body>
 
 </html>
