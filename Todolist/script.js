@@ -130,3 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
     displayTasks();
   });
   
+  function logOut(){
+    localStorage.removeItem("name");
+    localStorage.removeItem("email");
+    window.location.href="../Registeringsida/login.html";
+}
