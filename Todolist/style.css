@@ -40,5 +40,10 @@ body {
   }
   
   #completed-tasks li {
-    background-color: #d4edda; /* Light green background for done tasks */
+    background-color: #d4edda; 
   }
+  #out{
+    float: right;
+    
+  }
+  
