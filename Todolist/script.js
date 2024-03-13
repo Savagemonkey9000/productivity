@@ -181,6 +181,13 @@ document.addEventListener("DOMContentLoaded", () => {
       inputTimeEstimateTodo.value = task.timeEstimate;
       isEditing = true;
       currentEditingId = id;
+
+     // Scroll to the todo section
+    const todoSection = document.getElementById("todo-app");
+    window.scrollTo({
+        top: todoSection.offsetTop,
+        behavior: "smooth"
+    });
   };
 
   window.deleteTask = (id) => {
@@ -218,6 +225,14 @@ document.addEventListener("DOMContentLoaded", () => {
       inputCategoryHabit.value = habit.priority;
       isEditing = true;
       currentEditingId = id;
+
+
+      // Scroll to the habit section
+    const habitSection = document.getElementById("habitsTracker");
+    window.scrollTo({
+        top: habitSection.offsetTop,
+        behavior: "smooth"
+    });
   };
 
   window.deleteHabit = (id) => {
@@ -261,3 +276,9 @@ document.addEventListener("DOMContentLoaded", () => {
   displayTasks();
   displayHabits();
 });
+
+function logOut(){
+  localStorage.removeItem("name");
+  localStorage.removeItem("email");
+  window.location.href="../Registeringsida/login.html";
+}
