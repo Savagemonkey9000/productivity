@@ -18,29 +18,29 @@
         <a href="../Registeringsida/login.html">Home</a>
         <a href="../Weather App/index.html">Weather</a>
         <a href="../Timer App/index.html">Timer</a>
-        <a href="../Todolist/Todolist.html">Todo List</a>
+        
     </nav>
     
 </header>
 
-  <div class="container">
-    <div class="card">
-      <button onclick="logOut()" class="btn btn-primary" id="out">Logout</button>
-        <h2>profile page</h2>
-        
-        <hr>
-        <h3>Welcome
-        
-            <script>
-                document.write(localStorage.getItem("name"));
-            </script>
-        
-      </h3>
-    </div>
+<div class="container">
+  <div class="card">
+    <h2>profile page</h2>
+    <button onclick="logOut()" class="btn btn-primary" id="out">Logout</button>
+      
+      <hr>
+      <h3>Welcome
+      
+          <script>
+              document.write(localStorage.getItem("name"));
+          </script>
+      
+    </h3>
+  </div>
 </div>
 
   <div class="container">
-    <div id="todo-app">
+    <div id="todoApp">
         <h2>Todo List</h2>
         <form id="todo-form">
             <input type="text" id="task-title" placeholder="Task Title" required>
@@ -53,7 +53,7 @@
                 <option value="cleaning">Cleaning</option>
                 <!-- Add more categories as needed -->
             </select>
-            <button type="submit">Add Task</button>
+            <button type="submit" class="btn btn-primary">Add Task</button>
         </form>
         <h3>Ongoing Tasks</h3>
         <ul id="todo-list"></ul>
