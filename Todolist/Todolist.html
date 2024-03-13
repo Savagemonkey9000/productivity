@@ -18,7 +18,7 @@
         <a href="../Registeringsida/login.html">Home</a>
         <a href="../Weather App/index.html">Weather</a>
         <a href="../Timer App/index.html">Timer</a>
-        
+        <a href="../Todolist/Todolist.html">Todo List</a>
     </nav>
     
 </header>
@@ -39,26 +39,46 @@
     </div>
 </div>
 
-  <div id="todo-app">
-    <h2>Todo List</h2>
-    <form id="todo-form">
-      <input type="text" id="task-title" placeholder="Task Title" required>
-      <textarea id="task-desc" placeholder="Task Description" required></textarea>
-      <input type="date" id="task-deadline" required>
-      <input type="text" id="task-time-estimate" placeholder="Time Estimate (e.g., 2 hours)" required>
-      <select id="task-category">
-        <option value="shopping">Shopping</option>
-        <option value="household">Household</option>
-        <option value="cleaning">Cleaning</option>
-        
-      </select>
-      <button type="submit" class="btn btn-primary">Add Task</button>
-    </form>
-    <h3>Ongoing Tasks</h3>
-    <ul id="todo-list"></ul>
-    <h3>Completed Tasks</h3>
-    <ul id="completed-tasks"></ul>
-  </div>
+  <div class="container">
+    <div id="todo-app">
+        <h2>Todo List</h2>
+        <form id="todo-form">
+            <input type="text" id="task-title" placeholder="Task Title" required>
+            <textarea id="task-desc" placeholder="Task Description" required></textarea>
+            <input type="date" id="task-deadline" required>
+            <input type="text" id="task-time-estimate" placeholder="Time Estimate (e.g., 2 hours)" required>
+            <select id="task-category">
+                <option value="shopping">Shopping</option>
+                <option value="household">Household</option>
+                <option value="cleaning">Cleaning</option>
+                <!-- Add more categories as needed -->
+            </select>
+            <button type="submit">Add Task</button>
+        </form>
+        <h3>Ongoing Tasks</h3>
+        <ul id="todo-list"></ul>
+        <h3>Completed Tasks</h3>
+        <ul id="completed-tasks"></ul>
+    </div>
+
+    <div id="habitsTracker">
+        <h2>Habit Tracker</h2>
+        <form id="habit-form">
+            <input type="text" id="habits-title" placeholder="Habit Title" required>
+            <textarea id="habits-desc" placeholder="Habit Description" required></textarea>
+            <select id="Habit-Priority" name="Habit-Priority">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+                <!-- Add more priorities as needed -->
+            </select>
+            <button type="submit">Add Habit</button>
+        </form>
+        <div id="streak">
+            <!-- Habit streaks will be displayed here -->
+        </div>
+    </div>
+</div>
   
   <script src="script.js"></script>
 </body>
