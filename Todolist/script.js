@@ -137,31 +137,47 @@ document.addEventListener("DOMContentLoaded", () => {
       currentEditingId = null;
   };
 
+  
+
+
   const displayTasks = () => {
-      const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      const todoList = document.getElementById("todo-list");
-      todoList.innerHTML = "";
-      tasks.forEach((task) => {
-          const taskElement = document.createElement("li");
-          taskElement.innerHTML = `
-              <h3>${task.title}</h3>
-              <p>${task.description}</p>
-              <p><strong>Deadline:</strong> ${task.deadline}</p>
-              <p><strong>Time Estimate:</strong> ${task.timeEstimate}</p>
-              <p><strong>Category:</strong> ${task.category}</p>
-              <button onclick="toggleTaskStatus(${task.id})">
-              ${task.done ? "Mark as Not Done" : "Mark as Done"}
-              </button>
-              <button onclick="editTask(${task.id})">Edit</button>
-              <button onclick="deleteTask(${task.id})">Delete</button>
-          `;
-          if(task.done){
-              completedTasksList.appendChild(taskElement);
-          } else {
-              todoList.appendChild(taskElement);
-          }
-      });
-  };
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const todoList = document.getElementById("todo-list");
+    todoList.innerHTML = "";
+    completedTasksList.innerHTML = ""; // Clear the completedTasksList
+
+    tasks.forEach((task) => {
+        const taskElement = document.createElement("li");
+        taskElement.innerHTML = `
+            <h3>${task.title}</h3>
+            <p>${task.description}</p>
+            <p><strong>Deadline:</strong> ${task.deadline}</p>
+            <p><strong>Time Estimate:</strong> ${task.timeEstimate}</p>
+            <p><strong>Category:</strong> ${task.category}</p>
+            <button onclick="toggleTaskStatus(${task.id})">
+                ${task.done ? "Mark as Not Done" : "Mark as Done"}
+            </button>
+            <button onclick="editTask(${task.id})">Edit</button>
+            <button onclick="deleteTask(${task.id})">Delete</button>
+        `;
+        if (task.done) {
+            completedTasksList.appendChild(taskElement);
+            // Add event listeners for editing and deleting tasks in completedTasksList
+            const editButton = taskElement.querySelector("button:nth-of-type(2)");
+            const deleteButton = taskElement.querySelector("button:nth-of-type(3)");
+            editButton.addEventListener("click", (e) => {
+                e.stopPropagation(); // Prevent event propagation to the task's parent elements
+                editTask(task.id);
+            });
+            deleteButton.addEventListener("click", (e) => {
+                e.stopPropagation(); // Prevent event propagation to the task's parent elements
+                deleteTask(task.id);
+            });
+        } else {
+            todoList.appendChild(taskElement);
+        }
+    });
+};
 
    window.toggleTaskStatus = (id) => {
       const tasks = JSON.parse(localStorage.getItem("tasks"));
@@ -171,32 +187,42 @@ document.addEventListener("DOMContentLoaded", () => {
       displayTasks();
   };
 
-  window.editTask = (id) => {
-      const tasks = JSON.parse(localStorage.getItem("tasks"));
-      const task = tasks.find((task) => task.id === id);
-      inputTitleTodo.value = task.title;
-      inputDescTodo.value = task.description;
-      inputDeadlineTodo.value = task.deadline;
-      inputCategoryTodo.value = task.category;
-      inputTimeEstimateTodo.value = task.timeEstimate;
-      isEditing = true;
-      currentEditingId = id;
+
+
+
+   window.editTask = (id) => {    const tasks = JSON.parse(localStorage.getItem("tasks"));
+   const task = tasks.find((task) => task.id === id);
+   inputTitleTodo.value = task.title;
+   inputDescTodo.value = task.description;
+    inputDeadlineTodo.value = task.deadline;
+   inputCategoryTodo.value = task.category;
+   inputTimeEstimateTodo.value = task.timeEstimate;
+   isEditing = true;
+    currentEditingId = id;
 
      // Scroll to the todo section
-    const todoSection = document.getElementById("todo-app");
+    const todoSection = document.getElementById("todoApp");
     window.scrollTo({
         top: todoSection.offsetTop,
         behavior: "smooth"
     });
   };
 
-  window.deleteTask = (id) => {
-      let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      tasks = tasks.filter((task) => task.id !== id);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-      displayTasks();
-  };
+  
 
+  window.deleteTask = (id) => {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks = tasks.filter((task) => task.id !== id);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    displayTasks();
+
+    // Remove task from completedTasksList if it is marked as done
+    const taskElement = document.getElementById(`task-${id}`);
+    if (taskElement && taskElement.parentElement === completedTasksList) {
+        taskElement.remove();
+    }
+};
+  
   const displayHabits = () => {
       const habits = JSON.parse(localStorage.getItem("habits")) || [];
       habitStreak.innerHTML = "";

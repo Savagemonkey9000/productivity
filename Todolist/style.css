@@ -40,10 +40,30 @@ body {
   }
   
   #completed-tasks li {
-    background-color: #d4edda; 
+    background-color: #39964f; 
   }
   #out{
     float: right;
     
+  }
+
+  .container  {
+    display:flex;
+  }
+
+  
+
+  #habit-form input[type="text"],
+  #habit-form input[type="date"],
+  #habit-form textarea,
+  #habit-form select {
+    margin: 10px 0;
+    padding: 10px;
+    width: calc(100% - 22px);
+  }
+  
+  #habit-form button {
+    padding: 10px 20px;
+    cursor: pointer;
   }
   
