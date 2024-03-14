@@ -17,6 +17,7 @@ function saveData(){
      alert("User already registered");
  }
  else{
+  alert("Registering Successful"); 
      user_records.push({
          "name":name,
          "email":email,

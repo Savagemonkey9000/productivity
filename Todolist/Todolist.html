@@ -26,16 +26,17 @@
 <div>
   <div class="card">
     <button onclick="logOut()" class="btn btn-primary" id="out">Logout</button>
-    <h2>profile page</h2>
+    <!-- <h2>profile page</h2> -->
+    <h3>Welcome
+      
+      <script>
+          document.write(localStorage.getItem("name"));
+      </script>
+  
+</h3>
       
       <hr>
-      <h3>Welcome
       
-          <script>
-              document.write(localStorage.getItem("name"));
-          </script>
-      
-    </h3>
   </div>
 </div>
 
